@@ -1,27 +1,31 @@
-import { createContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { ShopContext } from "./ShopContext";
 
-export const ShopContext = createContext();
+const ShopContextProvider = ({ children }) => {
 
-const ShopContextProvider = (props) => {
+  const currency = '$';
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-    const currency = '$';
-    const backendUrl = import.meta.env.VITE_BACKEND_URL;
-    const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : '');
+  const [token, setToken] = useState(
+    localStorage.getItem('token') ? localStorage.getItem('token') : ''
+  );
 
-    useEffect(() => {
-        localStorage.setItem('token', token);
-    }, [token]);
+  useEffect(() => {
+    localStorage.setItem('token', token);
+  }, [token]);
 
-    const value = {
-        token, setToken,
-        backendUrl, currency
-    }
+  const value = {
+    token,
+    setToken,
+    backendUrl,
+    currency
+  };
 
-    return (
-        <ShopContext.Provider value={value}>
-            {props.children}
-        </ShopContext.Provider>
-    )
-}
+  return (
+    <ShopContext.Provider value={value}>
+      {children}
+    </ShopContext.Provider>
+  );
+};
 
 export default ShopContextProvider;
