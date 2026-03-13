@@ -3,6 +3,7 @@ import { ShopContext } from "./ShopContext";
 
 const ShopContextProvider = ({ children }) => {
 
+  const currency = '$';
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   const [token, setToken] = useState(
@@ -16,7 +17,8 @@ const ShopContextProvider = ({ children }) => {
   const value = {
     token,
     setToken,
-    backendUrl
+    backendUrl,
+    currency
   };
 
   return (
